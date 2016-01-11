@@ -1,0 +1,29 @@
+﻿create table cliente(
+	id int identity not null,
+	nome varchar(200) not null,
+	email varchar(200) not null,
+	morada varchar(200),
+	cp varchar(8),
+	data_nascimento date,
+	primary key (id)
+);
+
+create table produto(
+	id int identity not null,
+	descricao varchar(50) not null,
+	preco decimal(10,2) not null check(preco>=0) default('0'),
+	quantidade float default('0'),
+	primary key (id)
+);
+
+create table venda(
+	id int identity not null,
+	id_cliente int not null,
+	id_produto int not null,
+	preco_venda decimal(10,2) not null check(preco_venda>=0) default('0'),
+	quantidade float default('1'),
+	datavenda date,
+	primary key (id),
+	foreign key (id_cliente) references cliente(id),
+	foreign key (id_produto) references produto(id)
+);
