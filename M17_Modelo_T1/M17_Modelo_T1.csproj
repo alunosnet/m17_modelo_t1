@@ -70,7 +70,9 @@
     <Content Include="css\bootstrap-theme.min.css" />
     <Content Include="css\bootstrap.css" />
     <Content Include="css\bootstrap.min.css" />
+    <Content Include="editarproduto.aspx" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="index.aspx" />
     <Content Include="js\bootstrap.js" />
     <Content Include="js\bootstrap.min.js" />
     <Content Include="js\jquery-1.11.3.min.js" />
@@ -95,7 +97,9 @@
   <ItemGroup>
     <Content Include="Clientes.aspx" />
     <Content Include="produtos.aspx" />
+    <Content Include="removerproduto.aspx" />
     <Content Include="TextFile1.txt" />
+    <Content Include="venda.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -107,6 +111,20 @@
     <Compile Include="Clientes.aspx.designer.cs">
       <DependentUpon>Clientes.aspx</DependentUpon>
     </Compile>
+    <Compile Include="editarproduto.aspx.cs">
+      <DependentUpon>editarproduto.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="editarproduto.aspx.designer.cs">
+      <DependentUpon>editarproduto.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="index.aspx.cs">
+      <DependentUpon>index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="index.aspx.designer.cs">
+      <DependentUpon>index.aspx</DependentUpon>
+    </Compile>
     <Compile Include="produtos.aspx.cs">
       <DependentUpon>produtos.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -115,6 +133,20 @@
       <DependentUpon>produtos.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="removerproduto.aspx.cs">
+      <DependentUpon>removerproduto.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="removerproduto.aspx.designer.cs">
+      <DependentUpon>removerproduto.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="venda.aspx.cs">
+      <DependentUpon>venda.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="venda.aspx.designer.cs">
+      <DependentUpon>venda.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Imagens\" />

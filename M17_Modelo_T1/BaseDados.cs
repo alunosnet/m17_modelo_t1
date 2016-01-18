@@ -154,33 +154,116 @@ namespace M17_Modelo_T1
             comando.Dispose();
             return id;
         }
-       /* public bool removerCliente(int id)
+        public DataTable devolveProduto(int id)
         {
-            string sql = "DELETE FROM cliente WHERE id=@id ";
-
-            //parâmetros
+            string sql = "SELECT * FROM Produto WHERE id=@id";
             List<SqlParameter> parametros = new List<SqlParameter>()
             {
                 new SqlParameter() {ParameterName="@id",SqlDbType=System.Data.SqlDbType.Int,Value= id}
             };
-            return executaComando(sql, parametros);
+
+            return devolveConsulta(sql, parametros);
         }
-        public void atualizarCliente(int id, string nome, string morada, string cp, DateTime data, string email)
+        public void removerProduto(int id)
         {
-            string sql = "UPDATE cliente SET nome=@nome,morada=@morada,cp=@cp,";
-            sql += "data_nascimento=@data,email=@email WHERE id=@id;";
+            string sql = "DELETE FROM Produto WHERE id=@id";
+            List<SqlParameter> parametros = new List<SqlParameter>()
+            {
+                new SqlParameter() {ParameterName="@id",SqlDbType=System.Data.SqlDbType.Int,Value= id}
+            };
+
+            executaComando(sql, parametros);
+            return;
+        }
+        public void atualizarProduto(int id,string descricao, float quantidade, decimal preco)
+        {
+            string sql = "UPDATE produto SET descricao=@descricao,quantidade=@quantidade, ";
+            sql += " preco=@preco WHERE id=@id";
             //parâmetros
             List<SqlParameter> parametros = new List<SqlParameter>()
             {
-                new SqlParameter() {ParameterName="@nome",SqlDbType=System.Data.SqlDbType.VarChar,Value= nome},
-                new SqlParameter() {ParameterName="@morada",SqlDbType=System.Data.SqlDbType.VarChar,Value= morada},
-                new SqlParameter() {ParameterName="@cp",SqlDbType=System.Data.SqlDbType.VarChar,Value= cp},
-                new SqlParameter() {ParameterName="@data",SqlDbType=System.Data.SqlDbType.Date,Value= data},
-                new SqlParameter() {ParameterName="@email",SqlDbType=System.Data.SqlDbType.VarChar,Value= email},
+                new SqlParameter() {ParameterName="@descricao",SqlDbType=System.Data.SqlDbType.VarChar,Value= descricao},
+                new SqlParameter() {ParameterName="@quantidade",SqlDbType=System.Data.SqlDbType.Float,Value= quantidade},
+                new SqlParameter() {ParameterName="@preco",SqlDbType=System.Data.SqlDbType.Decimal,Value= preco},
                 new SqlParameter() {ParameterName="@id",SqlDbType=System.Data.SqlDbType.Int,Value= id}
             };
             executaComando(sql, parametros);
-        }*/
+            
+            return;
+        }
+        /* public bool removerCliente(int id)
+         {
+             string sql = "DELETE FROM cliente WHERE id=@id ";
+
+             //parâmetros
+             List<SqlParameter> parametros = new List<SqlParameter>()
+             {
+                 new SqlParameter() {ParameterName="@id",SqlDbType=System.Data.SqlDbType.Int,Value= id}
+             };
+             return executaComando(sql, parametros);
+         }
+         public void atualizarCliente(int id, string nome, string morada, string cp, DateTime data, string email)
+         {
+             string sql = "UPDATE cliente SET nome=@nome,morada=@morada,cp=@cp,";
+             sql += "data_nascimento=@data,email=@email WHERE id=@id;";
+             //parâmetros
+             List<SqlParameter> parametros = new List<SqlParameter>()
+             {
+                 new SqlParameter() {ParameterName="@nome",SqlDbType=System.Data.SqlDbType.VarChar,Value= nome},
+                 new SqlParameter() {ParameterName="@morada",SqlDbType=System.Data.SqlDbType.VarChar,Value= morada},
+                 new SqlParameter() {ParameterName="@cp",SqlDbType=System.Data.SqlDbType.VarChar,Value= cp},
+                 new SqlParameter() {ParameterName="@data",SqlDbType=System.Data.SqlDbType.Date,Value= data},
+                 new SqlParameter() {ParameterName="@email",SqlDbType=System.Data.SqlDbType.VarChar,Value= email},
+                 new SqlParameter() {ParameterName="@id",SqlDbType=System.Data.SqlDbType.Int,Value= id}
+             };
+             executaComando(sql, parametros);
+         }*/
+        #endregion
+        #region venda
+        public void adicionarVenda(int idproduto, int idcliente, float quantidade, decimal preco, DateTime data)
+        {
+            //iniciar transação
+            string sql = "";
+            SqlTransaction transacao = ligacaoBD.BeginTransaction();
+            try
+            {
+                //registar venda
+                sql = "INSERT INTO venda(id_cliente,id_produto,preco_venda,quantidade,datavenda) ";
+                sql += " VALUES (@idCliente,@idProduto,@preco,@quantidade,@data);";
+                SqlCommand comando = new SqlCommand(sql, ligacaoBD);
+                List<SqlParameter> parametros = new List<SqlParameter>()
+                {
+                    new SqlParameter() {ParameterName="@idCliente",SqlDbType=SqlDbType.Int,Value= idcliente},
+                    new SqlParameter() {ParameterName="@idProduto",SqlDbType=SqlDbType.Int,Value= idproduto},
+                    new SqlParameter() {ParameterName="@preco",SqlDbType=SqlDbType.Decimal,Value= preco},
+                    new SqlParameter() {ParameterName="@quantidade",SqlDbType=SqlDbType.Float,Value= quantidade},
+                    new SqlParameter() {ParameterName="@data",SqlDbType=SqlDbType.Date,Value= data}
+                };
+                comando.Parameters.AddRange(parametros.ToArray());
+                comando.Transaction = transacao;
+                comando.ExecuteNonQuery();
+                comando.Dispose();
+                //atualizar quantidade produto
+                sql = "UPDATE produto SET quantidade=quantidade-@quantidade WHERE id=@id";
+                comando = new SqlCommand(sql, ligacaoBD);
+                parametros.Clear();
+                parametros = new List<SqlParameter>()
+                {
+                    new SqlParameter() {ParameterName="@quantidade",SqlDbType=SqlDbType.Float,Value= quantidade},
+                    new SqlParameter() {ParameterName="@id",SqlDbType=SqlDbType.Int,Value= idproduto}
+                };
+                comando.Parameters.AddRange(parametros.ToArray());
+                comando.Transaction = transacao;
+                comando.ExecuteNonQuery();
+                comando.Dispose();
+                //terminar commit
+                transacao.Commit();
+            }
+            catch (Exception erro)
+            {
+                transacao.Rollback();
+            }
+        }
         #endregion
     }
 }
