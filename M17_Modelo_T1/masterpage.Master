@@ -1,18 +1,21 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="index.aspx.cs" Inherits="M17_Modelo_T1.index" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="masterpage.master.cs" Inherits="M17_Modelo_T1.masterpage" %>
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title></title>
+
     <link href="css/bootstrap.min.css" rel="stylesheet" />
     <script src="js/jquery-1.11.3.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+        <title></title>
 </head>
 <body>
     <form id="form1" runat="server">
-    <div class="container">
-    <!--Menu-->
+    <div>
+            <!--Menu-->
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -26,7 +29,7 @@
                 <div class="collapse navbar-collapse" id="minhaBarra">
                     <ul class="nav navbar-nav">
                         <li>
-                            <a href="clientes.aspx">Clientes</a>
+                            <a href="clientesmp.aspx">Clientes</a>
                         </li>
                          <li>
                             <a href="produtos.aspx">Produtos</a>
@@ -58,14 +61,11 @@
 
         </nav>
     <!--Menu-->
-        <div class="jumbotron">
-            <h1>PSI - Módulo 17A</h1>
-        </div>
-        <img src="./Imagens/psi3.jpg" class="img-responsive" alt="PSI" />
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+        
+        </asp:ContentPlaceHolder>
         <p>alunosNET.pt.vu</p>
-        <div runat="server" id="div_cookies">
-            Este site utiliza cookies
-        </div>
+
     </div>
     </form>
 </body>

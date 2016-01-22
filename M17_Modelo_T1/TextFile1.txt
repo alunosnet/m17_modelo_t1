@@ -27,3 +27,13 @@ create table venda(
 	foreign key (id_cliente) references cliente(id),
 	foreign key (id_produto) references produto(id)
 );
+
+create table utilizador(
+	nome varchar(40) not null primary key,
+	palavra_passe varchar(50) not null,
+	perfil int not null
+);
+
+//perfil
+0-admin
+1-cliente (clientes/vendas)

@@ -13,6 +13,19 @@ namespace M17_Modelo_T1
         BaseDados bd = new BaseDados();
         protected void Page_Load(object sender, EventArgs e)
         {
+            //verifica se tem login feito
+            if (Session["nome"] == null)
+            {
+                Response.Redirect("login.aspx");
+                return;
+            }
+            //verifica se é admin
+            if (Session["perfil"].Equals("0") == false)
+            {
+                Response.Redirect("index.aspx");
+                return;
+            }
+
             if (!IsPostBack)
             {
                 try

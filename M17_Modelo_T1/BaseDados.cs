@@ -265,5 +265,35 @@ namespace M17_Modelo_T1
             }
         }
         #endregion
+        #region Utilizadores
+        public void adicionarUtilizador(string nome,string password,int perfil)
+        {
+            string sql = "INSERT INTO utilizador(nome,palavra_passe,perfil) VALUES ";
+            sql += " (@nome,HASHBYTES('SHA1',@password),@perfil)";
+            List<SqlParameter> parametros = new List<SqlParameter>()
+            {
+                new SqlParameter() {ParameterName="@nome",SqlDbType=SqlDbType.VarChar,Value= nome},
+                new SqlParameter() {ParameterName="@password",SqlDbType=SqlDbType.VarChar,Value= password},
+                new SqlParameter() {ParameterName="@perfil",SqlDbType=SqlDbType.Int,Value= perfil}
+            };
+
+            executaComando(sql, parametros);
+            return;
+        }
+        public DataTable verificarLogin(string nome,string password)
+        {
+            string sql = "SELECT * FROM utilizador WHERE nome=@nome AND ";
+            sql += " palavra_passe=cast(HASHBYTES('SHA1',@password) as varchar)";
+            List<SqlParameter> parametros = new List<SqlParameter>()
+            {
+                new SqlParameter() {ParameterName="@nome",SqlDbType=SqlDbType.VarChar,Value= nome},
+                new SqlParameter() {ParameterName="@password",SqlDbType=SqlDbType.VarChar,Value= password}
+            };
+            DataTable utilizador = devolveConsulta(sql, parametros);
+            if (utilizador == null || utilizador.Rows.Count == 0)
+                return null;
+            return utilizador;
+        }
+        #endregion
     }
 }
