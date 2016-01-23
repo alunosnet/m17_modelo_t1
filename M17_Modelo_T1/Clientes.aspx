@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Clientes.aspx.cs" Inherits="M17_Modelo_T1.Clientes" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Clientes.aspx.cs" Inherits="M17_Modelo_T1.Clientes" ValidateRequest="false" %>
 
 <!DOCTYPE html>
 
