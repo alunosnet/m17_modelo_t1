@@ -14,6 +14,7 @@ namespace M17_Modelo_T1
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            Label1.Text = "";
             if (IsPostBack == false)
             {
                 atualizaGrelha();
@@ -27,11 +28,11 @@ namespace M17_Modelo_T1
             //guardar dados do webform
             try
             {
-                string nome = tbNome.Text;
-                string morada = tbMorada.Text;
-                string cp = tbCP.Text;
+                string nome =Server.HtmlEncode(tbNome.Text);
+                string morada = Server.HtmlEncode(tbMorada.Text);
+                string cp = Server.HtmlEncode(tbCP.Text);
                 DateTime data = DateTime.Parse(tbDataNascimento.Text);
-                string email = tbEmail.Text;
+                string email =Server.HtmlEncode( tbEmail.Text);
                 //validação
                 //guardar dados na bd
                 bd.adicionarCliente(nome, morada, cp, data, email);

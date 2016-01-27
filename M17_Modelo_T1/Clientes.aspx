@@ -8,21 +8,26 @@
     <link href="css/bootstrap.min.css" rel="stylesheet" />
     <script src="js/jquery-1.11.3.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/clientesform.js"></script>
 </head>
 <body>
     <div class="container">
-    <form id="form1" runat="server">
-        
-        Nome:<asp:TextBox ID="tbNome" runat="server"></asp:TextBox>
-        <br />
-        Morada:<asp:TextBox ID="tbMorada" runat="server"></asp:TextBox>
-        <br />
-        Código Postal:<asp:TextBox ID="tbCP" runat="server"></asp:TextBox>
-        <br />
-        Data Nascimento:<asp:TextBox ID="tbDataNascimento" runat="server"></asp:TextBox>
-        <br />
-        Email:<asp:TextBox ID="tbEmail" runat="server"></asp:TextBox>
-        <br />
+    <form id="form1" runat="server" >
+        <div class="form-group">
+            <label for="tbNome">Nome</label><asp:TextBox ID="tbNome" runat="server" CssClass="form-control"></asp:TextBox>
+        </div>
+        <div class="form-group">
+            <label for="tbMorada">Morada</label><asp:TextBox ID="tbMorada" runat="server" CssClass="form-control"></asp:TextBox>
+        </div>
+        <div class="form-group">
+            <label for="tbCP">Código Postal</label><asp:TextBox ID="tbCP" runat="server" CssClass="form-control"></asp:TextBox>
+        </div>
+        <div class="form-group">
+            <label for="tbDataNascimento">Data Nascimento</label><asp:TextBox ID="tbDataNascimento" runat="server" CssClass="form-control" TextMode="Date" ></asp:TextBox>
+        </div>
+        <div class="form-group">
+            <label for="tbEmail">Email</label><asp:TextBox ID="tbEmail" runat="server" CssClass="form-control" TextMode="Email"></asp:TextBox>
+        </div>
         <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Adicionar" CssClass="btn btn-info" />
         <br />
         <asp:Label ID="Label1" runat="server" Text=""></asp:Label>
