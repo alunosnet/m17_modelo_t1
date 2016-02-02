@@ -8,13 +8,14 @@
     <link href="css/bootstrap.min.css" rel="stylesheet" />
     <script src="js/jquery-1.11.3.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/clientesform.js"></script>
+    <script src="js/formclientes.js"></script>
 </head>
 <body>
     <div class="container">
     <form id="form1" runat="server" >
         <div class="form-group">
-            <label for="tbNome">Nome</label><asp:TextBox ID="tbNome" runat="server" CssClass="form-control"></asp:TextBox>
+            <label for="tbNome">Nome</label>
+            <asp:TextBox ID="tbNome" runat="server" CssClass="form-control"></asp:TextBox>
         </div>
         <div class="form-group">
             <label for="tbMorada">Morada</label><asp:TextBox ID="tbMorada" runat="server" CssClass="form-control"></asp:TextBox>
